@@ -68,6 +68,11 @@ namespace Anipad
             DataContext = this;
             LoadSettings();
             CurrentFilename = DefaultFilename;
+            string[] args = Environment.GetCommandLineArgs();
+            if (args.Length > 1)
+            {
+                OpenFile(args[1]);
+            }
         }
 
         private void UpdateWindowTitle()
