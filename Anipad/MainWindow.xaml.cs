@@ -123,7 +123,7 @@ namespace Anipad
         {
             try
             {
-                textEditor.Document.Blocks.Clear();
+                textEditor.Clear();
                 using (StreamReader sr = new StreamReader(filename))
                 {
                     textEditor.AppendText(sr.ReadToEnd());
@@ -143,7 +143,7 @@ namespace Anipad
 
         private void New_MenuItem_Click(object sender, ExecutedRoutedEventArgs e)
         {
-            textEditor.Document.Blocks.Clear();
+            textEditor.Clear();
             CurrentFilename = DefaultFilename;
             AnyChangeMade = false;
         }
@@ -189,7 +189,7 @@ namespace Anipad
                 {
                     using (StreamWriter sw = new StreamWriter(fs))
                     {
-                        sw.Write(new TextRange(textEditor.Document.ContentStart, textEditor.Document.ContentEnd).Text);
+                        sw.Write(textEditor.Text);
                     }
                 }
                 AnyChangeMade = false;

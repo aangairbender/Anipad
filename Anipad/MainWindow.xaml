@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Anipad"
         mc:Ignorable="d"
         Title="Anipad" Height="661.653" Width="1156.568" Icon="Resources/MainIcon.ico"
-        FocusManager.FocusedElement="{Binding ElementName=textEditor}">
+        FocusManager.FocusedElement="{Binding ElementName=textEditor}" FontFamily="Consolas" FontSize="14"
+        WindowStartupLocation="CenterScreen">
     <Window.Background>
         <ImageBrush/>
     </Window.Background>
@@ -45,7 +46,7 @@
                         <BlurEffect Radius="3"/>
                     </Image.Effect>
                 </Image>
-                <RichTextBox
+                <TextBox
                     x:Name="textEditor"
                     FontFamily="Consolas"
                     FontSize="14"
@@ -54,11 +55,12 @@
                     VerticalAlignment="Stretch"
                     Foreground="White"
                     CaretBrush="#FFEAEAEA"
-                    SelectionBrush="#FF6270FF"
+                    SelectionBrush="#FFD3D7FF"
                     BorderBrush="{x:Null}"
                     VerticalScrollBarVisibility="Auto"
                     BorderThickness="0"
-                    TextChanged="textEditor_TextChanged"/>
+                    TextChanged="textEditor_TextChanged"
+                    AcceptsTab="True" AcceptsReturn="True"/>
             </Grid>
         </DockPanel>
     </Grid>
