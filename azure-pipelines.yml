@@ -31,7 +31,8 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    contents: '**\bin\Release\**'
+    sourceFolder: 'Anipad\bin\Release'
+    contents: '**'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
