@@ -25,13 +25,13 @@ namespace Anipad.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Resources/DefaultBackgroundImage.png")]
-        public string BackgroundImageFilename {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TextEditorConfig {
             get {
-                return ((string)(this["BackgroundImageFilename"]));
+                return ((string)(this["TextEditorConfig"]));
             }
             set {
-                this["BackgroundImageFilename"] = value;
+                this["TextEditorConfig"] = value;
             }
         }
     }

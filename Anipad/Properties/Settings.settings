@@ -2,8 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Anipad.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="BackgroundImageFilename" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Resources/DefaultBackgroundImage.png</Value>
+    <Setting Name="TextEditorConfig" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
