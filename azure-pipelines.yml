@@ -33,6 +33,18 @@ steps:
   inputs:
     sourceFolder: 'Anipad\bin\Release'
     contents: '**'
+    targetFolder: '$(Build.ArtifactStagingDirectory)\bin'
+    
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: ''
+    contents: 'LICENSE'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: ''
+    contents: 'installer_script.nsi'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
