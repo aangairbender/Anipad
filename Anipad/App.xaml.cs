@@ -21,14 +21,17 @@ namespace Anipad
         private void OnStartup(object sender, StartupEventArgs e)
         {
             SetupIoc();
-            string initialFilename = Utils.GetFilenameFromCommandLineArgs(Environment.GetCommandLineArgs());
 
+            string[] filesToOpen = Utils.ExtractFilesToOpenFromCommandLineArgs(Environment.GetCommandLineArgs());
 
-            var mainWindowViewModel = new MainWindowViewModel(initialFilename);
+            foreach (var filename in filesToOpen)
+            {
+                var mainWindowViewModel = new MainWindowViewModel(filename);
 
-            var mainWindow = new MainWindow();
-            mainWindow.DataContext = mainWindowViewModel;
-            mainWindow.Show();
+                var mainWindow = new MainWindow();
+                mainWindow.DataContext = mainWindowViewModel;
+                mainWindow.Show();
+            }
         }
 
 
