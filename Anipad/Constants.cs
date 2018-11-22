@@ -18,9 +18,13 @@ namespace Anipad
 
         public const string DefaultBackgroundImageTitle = "Default background image";
 
-        public const string DefaultBackgroundImageFilename = "pack://siteoforigin:,,,/Resources/DefaultBackgroundImage.png";
+        public const string DefaultBackgroundImageFilename =
+            "pack://siteoforigin:,,,/Resources/DefaultBackgroundImage.png";
 
         public const string AnyFileFilter = "Any file(*.*) | *.*";
+
+        public const string BackgroundImageFilter =
+            "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
 
         public const string SaveChangesMessageBoxTextPattern = "Save changes in file\n{0}?";
     }

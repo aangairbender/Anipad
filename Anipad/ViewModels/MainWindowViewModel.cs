@@ -36,6 +36,23 @@ namespace Anipad.ViewModels
             {
                 _textEditor.AnyChangeMade = true;
             });
+            ChangeBackgroundImageCommand = new RelayCommand(ChooseAndChangeBackgroundImage);
+            ResetBackgroundImageToDefault = new RelayCommand(() =>
+            {
+                Config.BackgroundImageManager.Reset();
+                Config.Save();
+            });
+        }
+
+        private void ChooseAndChangeBackgroundImage()
+        {
+            string filename = _dialogService.ShowChooseBackgroundImageDialog();
+
+            if (filename != null)
+            {
+                Config.BackgroundImageManager.Set(new BackgroundImage("", filename));
+                Config.Save();
+            }
         }
 
         public RelayCommand NewCommand { get; private set; }
@@ -44,6 +61,8 @@ namespace Anipad.ViewModels
         public RelayCommand SaveAsCommand { get; private set; }
         public RelayCommand ExitCommand { get; private set; }
         public RelayCommand TextChangedCommand { get; private set; }
+        public RelayCommand ChangeBackgroundImageCommand { get; private set; }
+        public RelayCommand ResetBackgroundImageToDefault { get; private set; }
 
         public TextEditor TextEditor => _textEditor;
         public TextEditorConfig Config => _config;

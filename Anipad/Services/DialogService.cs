@@ -11,6 +11,9 @@ namespace Anipad.Services
         public string ShowSaveFileDialog() =>
             ShowSaveFileDialog(Constants.AnyFileFilter);
 
+        public string ShowChooseBackgroundImageDialog() =>
+            ShowOpenFileDialog(Constants.BackgroundImageFilter);
+
         public bool? ShowSaveChangesMessageBox(string filename)
         {
             string messageBoxCaption = Constants.AppName;

@@ -12,6 +12,9 @@ namespace Anipad.Services
 
         string ShowSaveFileDialog();
 
+        string ShowChooseBackgroundImageDialog();
+
         bool? ShowSaveChangesMessageBox(string filename);
+
     }
 }

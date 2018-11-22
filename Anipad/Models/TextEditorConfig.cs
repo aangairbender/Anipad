@@ -70,12 +70,14 @@ namespace Anipad.Models
         public void Save()
         {
             Properties.Settings.Default.TextEditorConfig = JsonConvert.SerializeObject(this);
+            Properties.Settings.Default.Save();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {
+            Save();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

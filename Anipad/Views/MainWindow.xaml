@@ -40,6 +40,10 @@
                     <Separator/>
                     <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
                 </MenuItem>
+                <MenuItem Header="Background image">
+                    <MenuItem Header="Change" Command="{Binding ChangeBackgroundImageCommand}"/>
+                    <MenuItem Header="Reset to default" Command="{Binding ResetBackgroundImageToDefault}"/>
+                </MenuItem>
             </Menu>
             <Grid DockPanel.Dock="Top" Background="Black">
                 <Image
