@@ -1,20 +1,24 @@
-﻿using Anipad.Services;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
+using Anipad.Services;
 
-namespace Anipad.Model
+namespace Anipad.Models
 {
     public class TextEditor : INotifyPropertyChanged
     {
+        private readonly Func<string> _chooseFileToOpen;
+        private readonly Func<string> _chooseFileToSave;
+        private readonly Func<string, bool?> _confirmSaveChanges;
+        private readonly Func<string, string> _readFile;
+        private readonly Action<string, string> _writeFile;
+
         private string _text;
+        private string _currentFilename = Constants.DefaultFilename;
+        private bool _anyChangeMade;
+
         public string Text
         {
             get => _text;
@@ -25,7 +29,6 @@ namespace Anipad.Model
             }
         }
 
-        private string _currentFilename = Constants.DefaultFilename;
         public string CurrentFilename
         {
             get => _currentFilename;
@@ -36,7 +39,6 @@ namespace Anipad.Model
             }
         }
 
-        private bool _anyChangeMade = false;
         public bool AnyChangeMade
         {
             get => _anyChangeMade;
@@ -47,54 +49,57 @@ namespace Anipad.Model
             }
         }
 
-        private TextEditorConfig _config = TextEditorConfig.Load();
-        public TextEditorConfig Config
+        public TextEditor(Func<string> chooseFileToOpen, Func<string> chooseFileToSave,
+            Func<string, bool?> confirmSaveChanges, Func<string, string> readFile, Action<string, string> writeFile, string initialFilename = null)
         {
-            get => _config;
-            set
+            _chooseFileToOpen = chooseFileToOpen;
+            _chooseFileToSave = chooseFileToSave;
+            _confirmSaveChanges = confirmSaveChanges;
+            _readFile = readFile;
+            _writeFile = writeFile;
+
+            if (initialFilename != null)
             {
-                _config = value;
-                OnPropertyChanged();
+                OpenFile(initialFilename);
             }
         }
 
-        public void Open()
+        public void CallOpen()
         {
             if (!SafeCloseCurrent())
                 return;
 
-            bool dialogResult = DialogService.ShowOpenFileDialog(out string filename);
-            if (dialogResult == false)
+            string fileToOpen = _chooseFileToOpen();
+
+            if (fileToOpen == null)
                 return;
 
-            OpenFile(filename);
+            OpenFile(fileToOpen);
         }
 
-        public void Save()
+        public void CallSave()
         {
             SaveCurrentFile();
         }
 
-        public void SaveAs()
+        public void CallSaveAs()
         {
-            bool dialogResult = DialogService.ShowSaveFileDialog(out string filename);
-            if (dialogResult == false)
-                return;
-
-            SaveFile(filename);
+            AskForFileAndSave();
         }
 
-        public void New()
+        public void CallNew()
         {
             if (!SafeCloseCurrent())
                 return;
+
             NewFile();
         }
 
-        public void Exit()
+        public void CallExit()
         {
             if (!SafeCloseCurrent())
                 return;
+
             Application.Current.Shutdown();
         }
 
@@ -103,12 +108,12 @@ namespace Anipad.Model
             if (!AnyChangeMade)
                 return true;
 
-            bool? dialogResult = DialogService.ShowSaveChangesMessageBox(CurrentFilename);
+            bool? dialogResult = _confirmSaveChanges(CurrentFilename);
 
             if (!dialogResult.HasValue)
                 return false;
 
-            if (dialogResult.Value == false)
+            if (dialogResult == false)
                 return true;
 
             return SaveCurrentFile();
@@ -116,14 +121,14 @@ namespace Anipad.Model
 
         private void OpenFile(string filename)
         {
-            Text = File.ReadAllText(filename);
+            Text = _readFile(filename);
             CurrentFilename = filename;
             AnyChangeMade = false;
         }
 
         private void SaveFile(string filename)
         {
-            File.WriteAllText(filename, Text);
+            _writeFile(filename, Text);
             CurrentFilename = filename;
             AnyChangeMade = false;
         }
@@ -146,31 +151,18 @@ namespace Anipad.Model
                 return true;
             }
 
-            bool dialogResult = DialogService.ShowSaveFileDialog(out string filename);
+            return AskForFileAndSave();
+        }
 
-            if (!dialogResult)
+        private bool AskForFileAndSave()
+        {
+            string fileToSave = _chooseFileToSave();
+
+            if (fileToSave == null)
                 return false;
-            
-            SaveFile(filename);
+
+            SaveFile(fileToSave);
             return true;
-        }
-
-        public TextEditor()
-        {
-            ProcessCommandLineArgs();
-        }
-        
-        private void ProcessCommandLineArgs()
-        {
-            string[] args = Environment.GetCommandLineArgs();
-
-            if (args.Length == 1)
-                return;
-
-            OpenFile(args[1]);
-
-            for (int i = 2; i < args.Length; ++i)
-                AppService.RunAppCopyForFile(args[i]);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

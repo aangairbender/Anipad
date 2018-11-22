@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Anipad.Model
+namespace Anipad.Models
 {
     public class BackgroundImage : INotifyPropertyChanged
     {
+        public static BackgroundImage Default => new BackgroundImage(Constants.DefaultBackgroundImageTitle,
+            Constants.DefaultBackgroundImageFilename);
+
         private string _title;
+        private string _filename;
+
         public string Title
         {
             get => _title;
@@ -21,7 +21,6 @@ namespace Anipad.Model
             }
         }
 
-        private string _filename;
         public string Filename
         {
             get => _filename;

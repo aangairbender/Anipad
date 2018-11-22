@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Anipad.Services
+namespace Anipad
 {
-    public class AppService
+    public static class Utils
     {
-        public static void RunAppCopyForFile(string filename)
+        /*public static void RunAppCopyForFile(string filename)
         {
             string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
 
@@ -21,6 +21,14 @@ namespace Anipad.Services
             startInfo.UseShellExecute = false;
 
             Process.Start(startInfo);
+        }*/
+
+        public static string GetFilenameFromCommandLineArgs(string[] args)
+        {
+            if (args.Length == 1)
+                return null;
+
+            return args[0];
         }
     }
 }

@@ -22,5 +22,17 @@ namespace Anipad.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TextEditorConfig {
+            get {
+                return ((string)(this["TextEditorConfig"]));
+            }
+            set {
+                this["TextEditorConfig"] = value;
+            }
+        }
     }
 }

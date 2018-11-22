@@ -1,4 +1,4 @@
-﻿<Window x:Class="Anipad.View.MainWindow"
+﻿<Window x:Class="Anipad.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,8 +9,7 @@
         mc:Ignorable="d"
         Height="661.653" Width="1156.568" Icon="/Resources/MainIcon.ico"
         FocusManager.FocusedElement="{Binding ElementName=textEditor}" FontFamily="Consolas" FontSize="14"
-        WindowStartupLocation="CenterScreen"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        WindowStartupLocation="CenterScreen">
     
     <Window.Resources>
         <Style TargetType="{x:Type Paragraph}">
@@ -49,7 +48,7 @@
                     VerticalAlignment="Stretch"
                     Stretch="UniformToFill"
                     Opacity="0.4"
-                    Source="{Binding TextEditor.Config.BackgroundImageManager.Current.Filename}"
+                    Source="{Binding Config.BackgroundImageManager.Current.Filename}"
                     OpacityMask="Black">
                     <Image.Effect>
                         <BlurEffect Radius="3"/>
@@ -57,9 +56,9 @@
                 </Image>
                 <TextBox
                     x:Name="textEditor"
-                    FontFamily="{Binding TextEditor.Config.FontFamily}"
-                    FontSize="{Binding TextEditor.Config.FontSize}"
-                    TextWrapping="{Binding TextEditor.Config.TextWrapping}"
+                    FontFamily="{Binding Config.FontFamily}"
+                    FontSize="{Binding Config.FontSize}"
+                    TextWrapping="{Binding Config.TextWrapping}"
                     Background="Transparent"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"

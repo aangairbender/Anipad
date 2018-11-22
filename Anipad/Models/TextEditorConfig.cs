@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Newtonsoft.Json;
 
-namespace Anipad.Model
+namespace Anipad.Models
 {
     public class TextEditorConfig : INotifyPropertyChanged
     {
@@ -51,7 +46,7 @@ namespace Anipad.Model
 
         private TextEditorConfig()
         {
-            BackgroundImageManager = BackgroundImageManager.CreateDefault();
+            BackgroundImageManager = new BackgroundImageManager();
             TextWrapping = Constants.DefaultTextWrapping;
             FontFamily = new FontFamily(Constants.DefautFontFamilyName);
             FontSize = Constants.DefaultFontSize;
@@ -59,14 +54,13 @@ namespace Anipad.Model
 
         public static TextEditorConfig Load()
         {
-            if (!File.Exists(Constants.TextEditorConfigFilename))
-                return Create();
+            if (Properties.Settings.Default.TextEditorConfig == "")
+                return CreateNew();
 
-            return JsonConvert.DeserializeObject<TextEditorConfig>(
-                File.ReadAllText(Constants.TextEditorConfigFilename));
+            return JsonConvert.DeserializeObject<TextEditorConfig>(Properties.Settings.Default.TextEditorConfig);
         }
 
-        private static TextEditorConfig Create()
+        private static TextEditorConfig CreateNew()
         {
             var config = new TextEditorConfig();
             config.Save();
@@ -75,7 +69,7 @@ namespace Anipad.Model
 
         public void Save()
         {
-            File.WriteAllText(Constants.TextEditorConfigFilename, JsonConvert.SerializeObject(this));
+            Properties.Settings.Default.TextEditorConfig = JsonConvert.SerializeObject(this);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

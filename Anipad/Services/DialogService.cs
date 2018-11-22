@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.Win32;
 
 namespace Anipad.Services
 {
-    public static class DialogService
+    public class DialogService : IDialogService
     {
-        public static bool ShowOpenFileDialog(out string filename) =>
-            ShowOpenFileDialog(Constants.AnyFileFilter, false, out filename);
+        public string ShowOpenFileDialog() =>
+            ShowOpenFileDialog(Constants.AnyFileFilter);
 
-        public static bool ShowSaveFileDialog(out string filename) =>
-            ShowSaveFileDialog(Constants.AnyFileFilter, out filename);
+        public string ShowSaveFileDialog() =>
+            ShowSaveFileDialog(Constants.AnyFileFilter);
 
-        public static bool? ShowSaveChangesMessageBox(string filename)
+        public bool? ShowSaveChangesMessageBox(string filename)
         {
-            string caption = Constants.AppName;
+            string messageBoxCaption = Constants.AppName;
             string messageBoxText = string.Format(Constants.SaveChangesMessageBoxTextPattern, filename);
-            MessageBoxResult result = MessageBox.Show(messageBoxText, caption, MessageBoxButton.YesNoCancel);
+            MessageBoxResult result = MessageBox.Show(messageBoxText, messageBoxCaption, MessageBoxButton.YesNoCancel);
+
             switch(result)
             {
                 case MessageBoxResult.Yes:
@@ -32,27 +28,24 @@ namespace Anipad.Services
             }
         }
 
-        private static bool ShowOpenFileDialog(string filter, bool multiselect, out string filename)
+        private string ShowOpenFileDialog(string filter)
         {
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = filter;
-            openFileDialog.Multiselect = multiselect;
+            var openFileDialog = new OpenFileDialog {Filter = filter, Multiselect = false};
 
             bool? result = openFileDialog.ShowDialog();
-            filename = openFileDialog.FileName;
+            string filename = openFileDialog.FileName;
 
-            return result.HasValue ? result.Value : false;
+            return result == true ? filename : null;
         }
 
-        private static bool ShowSaveFileDialog(string filter, out string filename)
+        private string ShowSaveFileDialog(string filter)
         {
-            var saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = filter;
+            var saveFileDialog = new SaveFileDialog {Filter = filter};
 
             bool? result = saveFileDialog.ShowDialog();
-            filename = saveFileDialog.FileName;
+            string filename = saveFileDialog.FileName;
 
-            return result.HasValue ? result.Value : false;
+            return result == true ? filename : null;
         }
     }
 }

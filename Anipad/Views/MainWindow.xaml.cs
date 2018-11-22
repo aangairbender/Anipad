@@ -1,8 +1,6 @@
-﻿using Anipad.Converters;
-using System.Windows;
-using System.Windows.Data;
+﻿using System.Windows;
 
-namespace Anipad.View
+namespace Anipad.Views
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
