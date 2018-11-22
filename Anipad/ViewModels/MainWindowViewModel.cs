@@ -1,4 +1,6 @@
-﻿using Anipad.Models;
+﻿using System;
+using System.Windows;
+using Anipad.Models;
 using Anipad.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -31,7 +33,12 @@ namespace Anipad.ViewModels
             OpenCommand = new RelayCommand(_textEditor.CallOpen);
             SaveCommand = new RelayCommand(_textEditor.CallSave);
             SaveAsCommand = new RelayCommand(_textEditor.CallSaveAs);
-            ExitCommand = new RelayCommand(_textEditor.CallExit);
+            ExitCommand = new RelayCommand<Window>(window =>
+            {
+                bool letExit = _textEditor.CallExit();
+                if (letExit)
+                    window.Close();
+            });
             TextChangedCommand = new RelayCommand(() =>
             {
                 _textEditor.AnyChangeMade = true;
@@ -59,7 +66,7 @@ namespace Anipad.ViewModels
         public RelayCommand OpenCommand { get; private set; }
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand SaveAsCommand { get; private set; }
-        public RelayCommand ExitCommand { get; private set; }
+        public RelayCommand<Window> ExitCommand { get; private set; }
         public RelayCommand TextChangedCommand { get; private set; }
         public RelayCommand ChangeBackgroundImageCommand { get; private set; }
         public RelayCommand ResetBackgroundImageToDefault { get; private set; }

@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Height="661.653" Width="1156.568" Icon="/Resources/MainIcon.ico"
         FocusManager.FocusedElement="{Binding ElementName=textEditor}" FontFamily="Consolas" FontSize="14"
-        WindowStartupLocation="CenterScreen">
-    
+        WindowStartupLocation="CenterScreen"
+        x:Name="MainWindowElement">
     <Window.Resources>
         <Style TargetType="{x:Type Paragraph}">
             <Setter Property="Margin"
@@ -28,6 +28,7 @@
         <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding NewCommand}"/>
         <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding OpenCommand}"/>
         <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveCommand}"/>
+        <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding ExitCommand}" CommandParameter="{Binding ElementName=MainWindowElement}"/>
     </Window.InputBindings>
     <Grid>
         <DockPanel>
@@ -38,7 +39,7 @@
                     <MenuItem Header="Save" Command="{Binding SaveCommand}" InputGestureText="Ctrl+S"/>
                     <MenuItem Header="Save as..." Command="{Binding SaveAsCommand}"/>
                     <Separator/>
-                    <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
+                    <MenuItem Header="Exit" Command="{Binding ExitCommand}" CommandParameter="{Binding ElementName=MainWindowElement}"/>
                 </MenuItem>
                 <MenuItem Header="Background image">
                     <MenuItem Header="Change" Command="{Binding ChangeBackgroundImageCommand}"/>

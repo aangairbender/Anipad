@@ -95,12 +95,9 @@ namespace Anipad.Models
             NewFile();
         }
 
-        public void CallExit()
+        public bool CallExit()
         {
-            if (!SafeCloseCurrent())
-                return;
-
-            Application.Current.Shutdown();
+            return SafeCloseCurrent();
         }
 
         private bool SafeCloseCurrent()

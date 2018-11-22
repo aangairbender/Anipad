@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 
 namespace Anipad.Views
 {
@@ -11,5 +12,6 @@ namespace Anipad.Views
         {
             InitializeComponent();
         }
+
     }
 }
