@@ -22,17 +22,5 @@ namespace Anipad.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Resources/DefaultBackgroundImage.png")]
-        public string BackgroundImageFilename {
-            get {
-                return ((string)(this["BackgroundImageFilename"]));
-            }
-            set {
-                this["BackgroundImageFilename"] = value;
-            }
-        }
     }
 }
